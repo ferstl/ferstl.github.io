@@ -8,7 +8,7 @@ Running IPFire instead of a cheap plastic router is a good thing. But when your 
 In case of a disk failure all you need to do is buy a new disk, download and install IPFire and load the backup via a few UI clicks. However, "loading the backup" requires to backup the backup to another place. In this example, I'll describe how to copy the IPFire backups to a Synology Diskstation via SSH and how to setup a Diskstation to receive such backups. With a few tweaks the following steps will also work on other Unix-like systems.
 
 
-## Setup SSH key on the IPFire host
+## Setup SSH Keys on the IPFire Host
 
 Setup a SSH keypair, e.g. using ECDSA with 521 bit keys
 ```bash
@@ -24,13 +24,13 @@ ssh-keygen -t ecdsa -b 521
 
 * Login to the Diskstation and configure the user's home directory
   ```bash
-  # create a home directory for the user
-  mkdir -p /home/myuser
-  chown myuser:mygroup /home/myuser
-  chmod o-rx /home/myuser
+  # create a home directory for the user (use the group that you assigned in the Diskstation UI)
+  mkdir -p /home/ipfire
+  chown ipfire:<mygroup> /home/ipfire
+  chmod o-rx /home/ipfire
 
   # Edit /etc/passwd and set the home directory and a login shell
-  ipfire:x:0000:000:ipfire backup:/home/ipfire:/bin/sh
+  ipfire:x:<userid>:<groupid>:ipfire backup:/home/ipfire:/bin/sh
   ```
 
 * Login as the backup user and configure SSH
@@ -42,9 +42,9 @@ ssh-keygen -t ecdsa -b 521
   touch ~/.ssh/authorized_keys
   ```
 
-* Copy the public key from IPFire (content of `/root/.ssh/id_ecdsa.pub`) into `~/.ssh/authorized_keys`
+* Copy the public key from IPFire (content of `/root/.ssh/id_ecdsa.pub` on the IPFire host) into `/home/ipfire/.ssh/authorized_keys`
 
-## Setup a daily backup on the IPFire host
+## Setup a Daily Backup on the IPFire Host
 
 * Create a backup script, e.g. `copy-backup.sh`:
 
