@@ -74,3 +74,4 @@ ssh-keygen -t ecdsa -b 521
 
 * Trigger a fresh backup directly in the Script
 * Describe how to setup IPFire from scratch and restore the backup
+* `/root` and `/etc/fcron.*` are not part of the backup. Describe how to include them into the backup
