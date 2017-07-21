@@ -5,7 +5,7 @@ title: Copy IPFire Backup to Synology Diskstation
 
 Running IPFire instead of a cheap plastic router is a good thing. But when your IPFire's disk crashes, all the little settings that you have made over several years are lost (e.g. the last "smart" device that you gave WIFI access). Fortunately, IPFire is able to create backups of its configuration in `/var/ipfire/backup`. Backups can be triggered via *System -> Backup* in the UI. Even better, IPFire automatically creates a backup before each update. So if you update IPFire regularly, you'll also have recent backups.
 
-In case of a disk failure all you need to do is buy a new disk, download and install IPFire and load the backup via a few UI clicks. However, "loading the backup" requires to backup the backup to another place. In this example, I'll describe how to copy the IPFire backups to a Synology Diskstation via SSH and how to setup a Diskstation to receive such backups. With a few tweaks the following steps will also work on other Unix-like systems.
+In case of a disk failure all you need to do is buy a new disk, download and install IPFire and load the backup via a few UI clicks. However, "loading the backup" requires to backup the backup to another place beforehand. In this example, I'll describe how to copy the IPFire backups to a Synology Diskstation via SSH and how to setup a Diskstation to receive such backups. With a few tweaks the following steps will also work on other Unix-like systems.
 
 
 ## Setup SSH Keys on the IPFire Host
@@ -19,7 +19,7 @@ ssh-keygen -t ecdsa -b 521
 ## Configure Synology Diskstation to Receive the Backup
 
 * In the Diskstation UI:
-  * Create a dedicated user for the Backup, e.g. "ipfire" for the backup
+  * Create a dedicated user for the Backup, e.g. "ipfire"
   * Give the user permission on the shared folder which stores the backup
 
 * Login to the Diskstation and configure the user's home directory
