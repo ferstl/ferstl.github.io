@@ -50,10 +50,12 @@ ssh-keygen -t ecdsa -b 521
 
   ```bash
   #/bin/bash
-
+  
   USER=ipfire
   HOST=diskstation
   SOURCE_DIR=/var/ipfire/backup
+  ADDON_DIR="${SOURCE_DIR}/addons"
+  BACKUP_SCRIPT="${SOURCE_DIR}/bin/backup.pl"
   DESTINATION_DIR=/path/to/the/backup/directory
   LOG_FILE=/var/log/copy_backup.log
   
@@ -65,8 +67,16 @@ ssh-keygen -t ecdsa -b 521
   
   log "Creating Backup of ${SOURCE_DIR}"
   # "include" will add the log files to the backup
-  /var/ipfire/backup/bin/backup.pl include
+  "${BACKUP_SCRIPT}" include
   log "Finished with exit code $?"
+  
+  # Backup all addons
+  for f in $(find "${ADDON_DIR}/includes" -type f); do
+    addon=$(basename $f)
+    log "Creating backup of Addon '$addon'"
+    "${BACKUP_SCRIPT}" addonbackup "$addon"
+    log "Finished with exit code $?"
+  done
   
   log "Copying backup to ${HOST}:${DESTINATION_DIR}"
   scp -r "${SOURCE_DIR}" ${USER}@${HOST}:"${DESTINATION_DIR}" >> "${LOG_FILE}" 2>&1
@@ -84,6 +94,5 @@ ssh-keygen -t ecdsa -b 521
 
 ## Possible Improvements of this Post
 
-* Trigger a fresh backup directly in the Script
 * Describe how to setup IPFire from scratch and restore the backup
 * `/root` and `/etc/fcron.*` are not part of the backup. Describe how to include them into the backup
