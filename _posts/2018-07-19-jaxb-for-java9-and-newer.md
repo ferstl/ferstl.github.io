@@ -33,8 +33,9 @@ This post focuses on the JAXB implementation which is currently used in many pro
 When migrating from Java 8 (or lower versions) to Java 9, such applications will neither compile nor run without taking further actions because the `java.xml.bind` module is not visible by default.
 
 There are two possibilies to get such applications built and run with Java 9:
-1) Explicitly add the `java.xml.bind` module at compile **and** at runtime
-2) Add JAXB as external library to your application
+
+1. Explicitly add the `java.xml.bind` module at compile **and** at runtime
+2. Add JAXB as external library to your application
 
 Option 1) is simple. Just add `--add-modules java.xml.bind` as additional option to your `javac` **and** your `java` command line. However, as [JEP 320](http://openjdk.java.net/jeps/320) indicates, this will only work for Java 9 and 10. As of Java 11, the `java.xml.bind` module will most likely not be part of the Java platform anymore. So this solution will not be working quite soon.
 
