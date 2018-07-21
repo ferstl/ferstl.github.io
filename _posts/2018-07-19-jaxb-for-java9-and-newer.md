@@ -51,7 +51,7 @@ Unfortunately, *"adding the JAXB reference implementation as external library"* 
 ```
 
 This library is the reference implementation of the JAXB API which is defined in `org.glassfish.jaxb:jaxb-core`. When you are using a build tool like Maven `jaxb-core` will be resolved transitively through `jaxb-runtime`.
-Additionally, the `jaxb-runtime` library does also contain a Java service descriptor defining this reference implementation as JAXB provider.
+Additionally, the `jaxb-runtime` library does also contain a Java Service Loader descriptor defining this reference implementation as JAXB provider.
 The libraries with the groupId `com.sun.xml.bind` are only published for legacy purposes and should not be used.
 
 So, adding `jaxb-runtime` as external library to your application will add the JAXB reference implementation as external component instead of using the build-in implementation to your application. If you have strict compatibility requirements, use version 2.2.10 as Java 8 replacement and version 2.3.0 as Java 9+ replacement.
