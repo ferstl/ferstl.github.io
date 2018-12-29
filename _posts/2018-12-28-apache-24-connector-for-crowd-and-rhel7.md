@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Apache 2.4 Connector for Crowd and RHEL 7
+title: Apache 2.4 Connector for Crowd and RHEL7
 ---
 
 ## TL;DR
